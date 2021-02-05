@@ -1,14 +1,7 @@
 from abc import ABC, abstractmethod
 from collections import defaultdict, namedtuple
-import math
 import numpy as np
-import sys
-sys.path.append("../../")
 from mcts import MCTS
-import scipy
-from scipy.cluster.hierarchy import ward, fcluster
-from scipy.spatial.distance import pdist
-import re
 from pizza_requirements import *
 import argparse
 
@@ -92,7 +85,7 @@ def run_mcts(clusters, scaler, MAX_CLUSTERS=5, action_count=5):
                 # calculate count
                 individual_counts.append((len(j) + sum(ing[ii]) + int(len(intersection(i, j)) == len(i)))*1e-3)
                 ic.append(int(len(intersection(i, j)) == len(i)))
-            
+
             # index-based, value-based
             # exact match
             counts = (np.argmax(ic), max(individual_counts))
