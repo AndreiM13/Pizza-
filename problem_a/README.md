@@ -149,7 +149,7 @@ def _backpropagate(self, path, reward):
 
 ![./images/image7-1.png](./images/image7-1.png)
 
-![./images/plot1.png](./images/plot1.png)
+![./images/plot1.png](./images/plot2.png)
 
 ## Comparison
 
