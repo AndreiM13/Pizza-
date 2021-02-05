@@ -25,9 +25,13 @@ output:
 Solution Description
 --------------------
 
-- In the output tuple 1 entry determines the order, 
+- In the output tuple 1 entry, `4-0-1-2-Remaining` determines the order, 
 
-- The Remaining relates to the other element that is not found in the `range(0,5)`, i.e. 3
+- The `Remaining` relates to the other element that is not found in the `range(0,5)`, i.e. 3
+
+- The Values are incremental values based on a reward framework
+
+- The Values are incremental values based on a reward framework with more magnitude.
 
 Alternative Configuration of the File
 -------------------------------------
@@ -55,9 +59,11 @@ output:
 Solution Description
 --------------------
 
-- In the output tuple 1 entry determines the order, 
+- In the output tuple 1 entry, `0-1-2-1-Remaining` determines the order, 
 
-- The Remaining relates to the other element that is not found in the `range(0,5)`, i.e. 3 or 4, we know 3 and 1 are equivalent, hence Remaining = 4
+- The `Remaining` relates to the other element that is not found in the `range(0,5)`, i.e. 3 or 4, we know 3 and 1 are equivalent, hence Remaining = 4
+
+- The Values are incremental values based on a reward framework with less magnitude and less noise.
 
 ## Plots
 
