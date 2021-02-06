@@ -70,10 +70,10 @@ class MCTS:
             node = node.find_random_child()
 
     def _backpropagate(self, path, reward):
-        for node in reversed(path):
+        for ii,node in enumerate(reversed(path)):
             self.N[node] += 1
             self.Q[node] += reward
-            reward /= 1.01  # 1% of the rewards are always reduced, discounted returns
+            reward /= 1.01 # 1% of the rewards are always reduced, discounted returns
 
     def _uct_select(self, node):
         # All children of node should already be expanded:

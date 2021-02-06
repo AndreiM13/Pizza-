@@ -84,9 +84,24 @@ def run_mcts(clusters, scaler, MAX_CLUSTERS=5, action_count=5):
             ic = []
             for ii,j in enumerate(p):
                 # calculate count
-                individual_counts.append((len(j) + sum(ing[ii]) + int(len(intersection(i, j)) == len(i)))*1e-3)
+                individual_counts.append((len(j) * sum(ing[ii]) * (int(len(intersection(i, j)) == len(i))+1)))
                 ic.append(int(len(intersection(i, j)) == len(i)))
 
+            # implementing fuzzy logic
+            values = {}
+            d_values = dict(zip(list(range(1,len(d))),[0]*(len(d)-1)))
+            for ii,i in enumerate(d):
+                values[ii] = 0
+                for ij in range(ii+1,len(d)):
+                    if ij not in d_values:
+                        d_values[ij] = 0
+                    values[ii] += len(intersection(i, d[ij]))
+                    d_values[ij] += len(intersection(i, d[ij]))
+
+            for ii,i in enumerate(d):
+                individual_counts[ii] += ((values[ii] if ii in values else 0) + \
+                    (d_values[ii] if ii in d_values else 0));
+            
             # index-based, value-based
             # exact match
             counts = (np.argmax(ic), max(individual_counts))
@@ -97,7 +112,7 @@ def run_mcts(clusters, scaler, MAX_CLUSTERS=5, action_count=5):
         def reward(self):
             counts = self.find_child()
 
-            return counts[1] * 0.9
+            return counts[1] * 1e-3
         
     return HierarchicalCluster
 
