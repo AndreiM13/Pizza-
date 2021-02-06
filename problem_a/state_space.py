@@ -48,11 +48,13 @@ def run_mcts(clusters, scaler, MAX_CLUSTERS=5, action_count=5):
         
         def find_children(self):
             counts = self.find_child()
-            cluster_idxs = np.where(clusters==(self.cluster+1))[0]
+            if self.cluster == MAX_CLUSTERS:
+                return {}
+            cluster_idx = np.where(clusters==(self.cluster+1))[0][0]
             return {
-                HierarchicalCluster(cluster=clusters[idx], point=counts[0], value=counts[1],
+                HierarchicalCluster(cluster=clusters[cluster_idx], point=counts[0], value=counts[idx],
                     terminal=HierarchicalCluster.set_terminal(
-                        clusters[idx])) for idx in cluster_idxs
+                        clusters[cluster_idx])) for idx in range(1,3)
             }
 
         def find_random_child(self):
@@ -84,35 +86,28 @@ def run_mcts(clusters, scaler, MAX_CLUSTERS=5, action_count=5):
             ic = []
             for ii,j in enumerate(p):
                 # calculate count
-                individual_counts.append((len(j) * sum(ing[ii]) * (int(len(intersection(i, j)) == len(i))+1)))
+                individual_counts.append((len(j) * sum(ing[ii]) + (int(len(intersection(i, j)) == len(i))+1)))
                 ic.append(int(len(intersection(i, j)) == len(i)))
 
             # implementing fuzzy logic
-            values = {}
             d_values = dict(zip(list(range(1,len(d))),[0]*(len(d)-1)))
-            for ii,i in enumerate(d):
-                values[ii] = 0
-                for ij in range(ii+1,len(d)):
-                    if ij not in d_values:
-                        d_values[ij] = 0
-                    values[ii] += len(intersection(i, d[ij]))
-                    d_values[ij] += len(intersection(i, d[ij]))
+            fuzzy_intersection = 0
+            for ij in range(self.cluster,len(d)):
+                if ij not in d_values:
+                    d_values[ij] = 0
+                d_values[ij] += len(intersection(i, d[ij]))
 
-            for ii,i in enumerate(d):
-                individual_counts[ii] += ((values[ii] if ii in values else 0) + \
-                    (d_values[ii] if ii in d_values else 0));
+            fuzzy_intersection += (d_values[ii] if ii in d_values else 0);
             
             # index-based, value-based
             # exact match
-            counts = (np.argmax(ic), max(individual_counts))
+            counts = (np.argmax(ic), sum(individual_counts) * 1e-2, fuzzy_intersection * 1e-2)
 
             return counts
         
         # floating point number
         def reward(self):
-            counts = self.find_child()
-
-            return counts[1] * 1e-3
+            return self.value
         
     return HierarchicalCluster
 
@@ -127,8 +122,9 @@ def cluster_model(MAX_CLUSTERS):
         mcts = MCTS(env=env)
         
         while True:
-            for i in range(10):
+            for i in range(25):
                 mcts.do_rollout(node)
+                # print(mcts.print_nodes())
             
             node, score = mcts.choose(node)
             if node.terminal:
