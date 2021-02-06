@@ -4,6 +4,7 @@ import numpy as np
 from mcts import MCTS
 from pizza_requirements import *
 import argparse
+import re
 
 def parse_args():
     parser = argparse.ArgumentParser()
