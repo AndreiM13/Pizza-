@@ -17,13 +17,16 @@ class MCTS:
             return float("-inf")  # avoid unseen moves
         return self.Q[n] / self.N[n]  # average reward
 
-    def print_nodes(self):
+    def print_nodes(self, df, df_export=False):
         agg = []
         score = []
 
         for n,c in self.children.items():
             agg.append(str(list(c)[0].point) if len(c) > 0 else 'Remaining')
             score.append(self.score(n))
+        if(df_export):
+            df.to_csv('output.csv')
+            print("Output saved in `output.csv`")
         return "-".join(agg), score
     
     def choose(self, node):
