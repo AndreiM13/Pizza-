@@ -1,0 +1,15 @@
+,method,value,point,cluster,parent,parent_method
+0,cluster_score,0.21000000000000002,0,2,1,cluster_score
+1,fuzzy_intersection,0.05,0,2,1,cluster_score
+2,cluster_score,0.2,1,3,2,fuzzy_intersection
+3,fuzzy_intersection,0.04,1,3,2,fuzzy_intersection
+4,cluster_score,0.2,1,3,2,cluster_score
+5,fuzzy_intersection,0.04,1,3,2,cluster_score
+6,cluster_score,0.21000000000000002,0,4,3,fuzzy_intersection
+7,fuzzy_intersection,0.05,0,4,3,fuzzy_intersection
+8,cluster_score,0.21000000000000002,0,4,3,cluster_score
+9,fuzzy_intersection,0.05,0,4,3,cluster_score
+10,cluster_score,0.2,3,5,4,cluster_score
+11,fuzzy_intersection,0.03,3,5,4,cluster_score
+12,cluster_score,0.2,3,5,4,fuzzy_intersection
+13,fuzzy_intersection,0.03,3,5,4,fuzzy_intersection

@@ -1,5 +1,7 @@
 # Pizza-
 
+# Monte Carlo Tree Search (MCTS)
+
 ## Problem A
 
 ```python
@@ -166,3 +168,27 @@ def _backpropagate(self, path, reward):
 **Separation of Values based on current Rewards Framework:**
 
 ![./images/plot5.png](./images/plot5.png)
+
+**Goal**
+
+- **Dissatisfaction**: _Eliminate Fuzzy_
+- **Satisfaction**: _Promote Cluster_
+
+- **Pass Through**: Consider all
+- **Split Process**: Consider Split only
+
+**Metrics Table**
+
+- n x 4 matrix results
+
+|   | Dissatisfaction | Satisfaction | Pass-Through | Split |
+|---|-----------------|--------------|--------------|-------|
+|   |                 |              |              |       |
+|   |                 |              |              |       |
+|   |                 |              |              |       |
+
+**Grouping**
+
+- Grouping is based on the best pizza goes for the largest number of teams
+- The best pizza depends on UCT value of the split at the top most element, the best pizza also depends on n x 4 matrix results. 
+
