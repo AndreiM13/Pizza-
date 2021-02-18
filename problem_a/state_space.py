@@ -125,7 +125,8 @@ def run_mcts(clusters, MAX_CLUSTERS=5, action_count=5):
         
         # floating point number
         def reward(self):
-            return self.value
+            counts = self.find_child()
+            return counts[1] if self.method == "cluster_score" else counts[2]
         
     return HierarchicalCluster
 
